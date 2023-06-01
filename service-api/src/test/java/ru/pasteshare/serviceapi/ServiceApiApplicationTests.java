@@ -1,4 +1,4 @@
-package ru.textbin.serviceapi;
+package ru.pasteshare.serviceapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
