@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="textbin@localhost" uuid="806291c9-5c31-41b8-ad7e-ae5671cb699e">
+    <data-source source="LOCAL" name="pasteshare@localhost" uuid="806291c9-5c31-41b8-ad7e-ae5671cb699e">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/textbin</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/pasteshare</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
