@@ -10,6 +10,9 @@ import lombok.Setter;
 @Table(name = "texts")
 public class Text extends BaseEntity {
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
     @Column(name = "content", nullable = false)
     private String content;
 
