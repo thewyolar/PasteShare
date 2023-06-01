@@ -1,12 +1,11 @@
 package ru.pasteshare.serviceapi.service;
 
 import org.springframework.stereotype.Service;
+import ru.pasteshare.serviceapi.dto.PasteCreateDTO;
+import ru.pasteshare.serviceapi.exception.NoAccessException;
+import ru.pasteshare.serviceapi.model.Paste;
 
 @Service
-public class PasteService {
-    private final PasteService pasteService;
-
-    public PasteService(PasteService pasteService) {
-        this.pasteService = pasteService;
-    }
+public interface PasteService {
+    Paste create(PasteCreateDTO paste) throws NoAccessException;
 }
