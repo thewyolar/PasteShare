@@ -6,7 +6,7 @@ create table roles (
     status varchar(255) check (status in ('ACTIVE','NOT_ACTIVE','DELETED'))
 );
 
-create table texts (
+create table pastes (
     title varchar(255) not null,
     created_at timestamp(6) not null,
     id uuid not null primary key,
