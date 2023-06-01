@@ -1,4 +1,4 @@
-package ru.textbin.serviceapi.model;
+package ru.pasteshare.serviceapi.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

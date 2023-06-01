@@ -1,11 +1,11 @@
-package ru.textbin.serviceapi.model;
+package ru.pasteshare.serviceapi.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import ru.textbin.serviceapi.util.Status;
+import ru.pasteshare.serviceapi.util.Status;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

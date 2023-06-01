@@ -1,4 +1,4 @@
-package ru.textbin.serviceapi.util;
+package ru.pasteshare.serviceapi.util;
 
 public enum Status {
     ACTIVE,

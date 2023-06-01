@@ -1,4 +1,4 @@
-package ru.textbin.serviceapi.model;
+package ru.pasteshare.serviceapi.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "texts")
-public class Text extends BaseEntity {
+@Table(name = "pastes")
+public class Paste extends BaseEntity {
 
     @Column(name = "title", nullable = false)
     private String title;

@@ -1,4 +1,4 @@
-package ru.textbin.serviceapi.model;
+package ru.pasteshare.serviceapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -31,7 +31,7 @@ public class User extends BaseEntity {
     private  String location;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Text> texts;
+    private List<Paste> pastes;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
