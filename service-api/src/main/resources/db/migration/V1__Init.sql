@@ -13,6 +13,7 @@ create table pastes (
     updated_at timestamp(6) not null,
     user_id uuid not null,
     content text not null,
+    expired_at timestamp(6),
     status varchar(255) check (status in ('ACTIVE','NOT_ACTIVE','DELETED'))
 );
 
@@ -34,7 +35,7 @@ create table user_roles (
     primary key (role_id, user_id)
 );
 
-alter table if exists texts
+alter table if exists pastes
     add constraint user_id_fk foreign key (user_id) references users;
 
 alter table if exists user_roles
