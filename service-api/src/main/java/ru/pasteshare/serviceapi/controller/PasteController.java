@@ -12,7 +12,7 @@ import ru.pasteshare.serviceapi.exception.NoAccessException;
 import ru.pasteshare.serviceapi.service.PasteService;
 
 @RestController
-@RequestMapping("/api/paste")
+@RequestMapping("/api/pastes")
 public class PasteController {
     private final PasteService pasteService;
 
