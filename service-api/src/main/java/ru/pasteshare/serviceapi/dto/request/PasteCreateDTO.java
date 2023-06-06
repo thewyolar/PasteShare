@@ -1,4 +1,4 @@
-package ru.pasteshare.serviceapi.dto;
+package ru.pasteshare.serviceapi.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

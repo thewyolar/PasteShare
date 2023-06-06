@@ -1,6 +1,6 @@
 package ru.pasteshare.serviceapi.service;
 
-import ru.pasteshare.serviceapi.dto.PasteCreateDTO;
+import ru.pasteshare.serviceapi.dto.request.PasteCreateDTO;
 import ru.pasteshare.serviceapi.exception.NoAccessException;
 import ru.pasteshare.serviceapi.model.Paste;
 

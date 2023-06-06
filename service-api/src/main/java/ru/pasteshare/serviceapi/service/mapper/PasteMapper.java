@@ -2,7 +2,7 @@ package ru.pasteshare.serviceapi.service.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import ru.pasteshare.serviceapi.dto.PasteCreateDTO;
+import ru.pasteshare.serviceapi.dto.request.PasteCreateDTO;
 import ru.pasteshare.serviceapi.model.Paste;
 
 @Component

@@ -1,4 +1,4 @@
-package ru.pasteshare.serviceapi.dto;
+package ru.pasteshare.serviceapi.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -19,14 +19,6 @@ public class UserRegisterDTO {
     private String username;
 
     @NotNull
-    @Size(min = 2)
-    private String name;
-
-    @NotNull
     @Size(min = 4)
     private String password;
-
-    @NotNull
-    @Size(min = 2)
-    private String location;
 }
