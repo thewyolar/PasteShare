@@ -31,6 +31,8 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 	implementation("org.modelmapper:modelmapper:3.1.1")
+	implementation("io.awspring.cloud:spring-cloud-aws-starter:3.0.1")
+	implementation("io.awspring.cloud:spring-cloud-aws-s3:3.0.1")
 }
 
 tasks.withType<Test> {
