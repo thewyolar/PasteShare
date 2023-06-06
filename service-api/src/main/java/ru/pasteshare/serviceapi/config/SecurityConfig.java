@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/api/auth/login", "/error").permitAll()
+                    .requestMatchers("/api/auth/login", "/api/users/register", "/error").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -60,7 +60,6 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/")
                     .and()
                 .exceptionHandling().authenticationEntryPoint((request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"));
-
 
         return http.build();
     }

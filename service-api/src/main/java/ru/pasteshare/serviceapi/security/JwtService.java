@@ -52,9 +52,9 @@ public class JwtService {
         return (username.equals(userInfo.getUsername()) && !isTokenExpired(token));
     }
 
-    public String generateToken(String userName){
-        Map<String,Object> claims=new HashMap<>();
-        return createToken(claims,userName);
+    public String generateToken(String userName) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, userName);
     }
 
     private String createToken(Map<String, Object> claims, String userName) {
@@ -68,7 +68,8 @@ public class JwtService {
     }
 
     private Key getSignKey() {
-        byte[] keyBytes= Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(keyBytes);
+//        byte[] keyBytes = Decoders.BASE64.decode(secret);
+//        return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 }
