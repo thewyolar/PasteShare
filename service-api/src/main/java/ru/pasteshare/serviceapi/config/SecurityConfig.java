@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,26 +41,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
-                    .and()
-                .csrf().disable()
-                .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/api/auth/login", "/api/users/register", "/error").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+                .httpBasic(httpBasicConfigurer -> {})
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorizeHttpRequestsConfigurer ->
+                        authorizeHttpRequestsConfigurer
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll().requestMatchers("/api/auth/login", "/api/users/register", "/error").permitAll()
+                                .anyRequest().authenticated())
+                .sessionManagement(sessionManagementConfigurer ->
+                        sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                    .loginPage("/")
-                    .defaultSuccessUrl("/")
-                    .and()
-                .logout()
-                    .logoutUrl("/")
-                    .logoutSuccessUrl("/")
-                    .and()
-                .exceptionHandling().authenticationEntryPoint((request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"));
+                .formLogin(formLoginConfigurer ->
+                        formLoginConfigurer
+                                .loginPage("/")
+                                .defaultSuccessUrl("/"))
+                .logout(logoutConfigurer ->
+                        logoutConfigurer
+                                .logoutUrl("/")
+                                .logoutSuccessUrl("/"))
+                .exceptionHandling(exceptionHandlingConfigurer ->
+                        exceptionHandlingConfigurer
+                                .authenticationEntryPoint((request, response, e) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")));
 
         return http.build();
     }
