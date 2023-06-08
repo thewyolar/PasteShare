@@ -1,14 +1,15 @@
 package ru.pasteshare.serviceapi.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ru.pasteshare.serviceapi.model.User;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 public class AuthResponseDTO {
-    private User user;
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 }
