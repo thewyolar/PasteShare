@@ -16,10 +16,13 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtService {
+public class JwtProvider {
 
-    @Value("${jwt_secret}")
-    private String secret;
+    @Value("${jwt.token.access.secret}")
+    private String jwtAccessSecret;
+
+    @Value("${jwt.token.access.expiration}")
+    private long jwtAccessExpiration;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -63,13 +66,12 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(Date.from(zonedDateTime.toInstant()))
-                .setExpiration(Date.from(zonedDateTime.plusHours(24).toInstant()))
+                .setExpiration(Date.from(zonedDateTime.plusSeconds(jwtAccessExpiration).toInstant()))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
     private Key getSignKey() {
-//        byte[] keyBytes = Decoders.BASE64.decode(secret);
-//        return Keys.hmacShaKeyFor(keyBytes);
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtAccessSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -15,12 +15,12 @@ import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtProvider jwtProvider;
 
     private final UserInfoService userInfoService;
 
-    public JwtFilter(JwtService jwtService, UserInfoService userInfoService) {
-        this.jwtService = jwtService;
+    public JwtFilter(JwtProvider jwtProvider, UserInfoService userInfoService) {
+        this.jwtProvider = jwtProvider;
         this.userInfoService = userInfoService;
     }
 
@@ -32,10 +32,10 @@ public class JwtFilter extends OncePerRequestFilter {
             if (token.isBlank()) {
                 response.sendError(response.SC_BAD_REQUEST, "Invalid JWT token in Bearer Header");
             } else {
-                String username = jwtService.extractUsername(token);
+                String username = jwtProvider.extractUsername(token);
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     UserInfo userInfo = userInfoService.loadUserByUsername(username);
-                    if (jwtService.validateToken(token, userInfo)) {
+                    if (jwtProvider.validateToken(token, userInfo)) {
                         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userInfo, null, userInfo.getAuthorities());
                         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         SecurityContextHolder.getContext().setAuthentication(authToken);
