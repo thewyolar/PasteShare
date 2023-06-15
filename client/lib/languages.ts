@@ -10,36 +10,14 @@ import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { php as PHP } from '@codemirror/lang-php'
 import { python as Python } from '@codemirror/lang-python'
 import { rust as Rust } from '@codemirror/lang-rust'
-import {
-  Cassandra,
-  MSSQL,
-  MariaSQL,
-  MySQL,
-  PLSQL,
-  PostgreSQL,
-  SQLite,
-  StandardSQL,
-  sql,
-} from '@codemirror/lang-sql'
+import { Cassandra, MSSQL, MariaSQL, MySQL, PLSQL, PostgreSQL, SQLite, StandardSQL, sql } from '@codemirror/lang-sql'
 import { wast as WAST } from '@codemirror/lang-wast'
 import { xml as XML } from '@codemirror/lang-xml'
 import { apl } from '@codemirror/legacy-modes/mode/apl'
 import { asciiArmor } from '@codemirror/legacy-modes/mode/asciiarmor'
 import { asterisk } from '@codemirror/legacy-modes/mode/asterisk'
 import { brainfuck } from '@codemirror/legacy-modes/mode/brainfuck'
-import {
-  dart,
-  objectiveC,
-  scala,
-  kotlin,
-  squirrel,
-  ceylon,
-  c,
-  csharp,
-  objectiveCpp,
-  nesC,
-  shader,
-} from '@codemirror/legacy-modes/mode/clike'
+import { dart, objectiveC, scala, kotlin, squirrel, ceylon, c, csharp, objectiveCpp, nesC, shader } from '@codemirror/legacy-modes/mode/clike'
 import { clojure } from '@codemirror/legacy-modes/mode/clojure'
 import { cmake } from '@codemirror/legacy-modes/mode/cmake'
 import { cobol } from '@codemirror/legacy-modes/mode/cobol'
@@ -119,13 +97,7 @@ import { troff } from '@codemirror/legacy-modes/mode/troff'
 import { ttcn } from '@codemirror/legacy-modes/mode/ttcn'
 import { ttcnCfg } from '@codemirror/legacy-modes/mode/ttcn-cfg'
 import { turtle } from '@codemirror/legacy-modes/mode/turtle'
-import {
-  gql,
-  gpSQL,
-  sparkSQL,
-  esper,
-  hive,
-} from '@codemirror/legacy-modes/mode/sql'
+import { gql, gpSQL, sparkSQL, esper, hive } from '@codemirror/legacy-modes/mode/sql'
 import { vb } from '@codemirror/legacy-modes/mode/vb'
 import { vbScript, vbScriptASP } from '@codemirror/legacy-modes/mode/vbscript'
 import { velocity } from '@codemirror/legacy-modes/mode/velocity'

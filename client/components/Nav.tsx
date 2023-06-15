@@ -1,9 +1,13 @@
 import { FC } from 'react'
-import { TbCommand } from 'react-icons/tb'
+import { TiThMenu } from 'react-icons/ti'
 import Link from 'next/link'
 import { useKmenu } from 'kmenu'
 
-const Nav: FC<{ header?: string }> = ({ header }) => {
+interface NavProps {
+  header?: string;
+}
+
+const Nav: FC<NavProps> = ({ header }) => {
   const { setOpen } = useKmenu()
 
   return (
@@ -28,12 +32,12 @@ const Nav: FC<{ header?: string }> = ({ header }) => {
       <button
         className='bg-white shadow-2xl dark:shadow-none text-black dark:bg-gray-800 transition hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white w-10 h-10 rounded flex justify-center text-xl items-center'
         onClick={() => setOpen(1)}
-        aria-label='Open Command Menu'
-        title='Open Command Menu'>
-        <TbCommand />
+        aria-label='Открыть панель управления'
+        title='Открыть панель управления'>
+        <TiThMenu />
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

@@ -1,41 +1,23 @@
-import {
-  Command,
-  CommandMenu,
-  CommandWrapper,
-  useCommands,
-  useKmenu,
-} from 'kmenu'
-import { Dispatch, FC, SetStateAction } from 'react'
-import {
-  FiArrowLeft,
-  FiCode,
-  FiCopy,
-  FiGithub,
-  FiGitlab,
-  FiLock,
-  FiLogOut,
-  FiMoon,
-  FiPlus,
-  FiRefreshCcw,
-  FiSun,
-  FiUser,
-  FiX,
-} from 'react-icons/fi'
+import { Command, CommandMenu, CommandWrapper, useCommands, useKmenu } from 'kmenu';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { FiCheck, FiClock, FiCode, FiCopy, FiEdit2, FiGithub, FiGitlab, FiLogOut, FiMoon, FiSun, FiUser, FiX } from 'react-icons/fi'
 import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
-import { useEffect } from 'react'
 import langs from '@lib/languages'
-import { nanoid } from 'nanoid'
-import supabase from '@lib/supabase'
+import { expires } from '@typings/expires'
+// import supabase from '@lib/supabase'
 import { User } from '@supabase/supabase-js'
 
-const Palette: FC<{
-  user: User | null
-  create: () => void
-  setPassword: Dispatch<SetStateAction<string | null>>
-  setLanguage: Dispatch<SetStateAction<keyof typeof langs | undefined>>
-}> = ({ user, setPassword, setLanguage }) => {
-  const { input, open, setOpen } = useKmenu()
+interface PaletteProps {
+  user: User | null;
+  slug: string | undefined;
+  setSlug: Dispatch<SetStateAction<string | undefined>>;
+  setLanguage: Dispatch<SetStateAction<keyof typeof langs | undefined>>;
+  setExpires: Dispatch<SetStateAction<expires>>;
+}
+
+const Palette: FC<PaletteProps> = ({ user, slug, setSlug, setLanguage, setExpires }) => {
+  const { setOpen } = useKmenu()
   const { setTheme } = useTheme()
 
   const main: Command[] = [
@@ -47,10 +29,13 @@ const Palette: FC<{
           text: user ? 'View Snips' : 'Continue With GitHub',
           perform: user
             ? undefined
-            : async () =>
-                await supabase.auth.signIn({
+            : async () => {
+                const { user } = await supabase.auth.signIn({
                   provider: 'github',
-                }),
+                })
+
+                if (user) window.location.reload()
+              },
           href: user ? `/user/${user.id}` : undefined,
         },
         {
@@ -77,10 +62,14 @@ const Palette: FC<{
           perform: () => setOpen(2),
         },
         {
-          icon: <FiLock />,
-          text: 'Encrypt...',
+          icon: <FiClock />,
+          text: 'Expires...',
           perform: () => setOpen(3),
-          keywords: 'password',
+        },
+        {
+          icon: <FiEdit2 />,
+          text: 'Edit Slug...',
+          perform: () => setOpen(4),
         },
       ],
     },
@@ -91,7 +80,7 @@ const Palette: FC<{
           icon: <BiPaintRoll />,
           text: 'Theme...',
           keywords: 'dark light mode themes',
-          perform: () => setOpen(6),
+          perform: () => setOpen(5),
         },
         {
           icon: <FiCopy />,
@@ -852,24 +841,75 @@ const Palette: FC<{
     },
   ]
 
-  const editPassword: Command[] = [
+  const expiresIn: Command[] = [
     {
       category: 'Options',
       commands: [
         {
-          text: 'Back',
-          icon: <FiArrowLeft />,
-          perform: () => setOpen(1),
+          text: 'Never',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.NEVER),
         },
         {
-          text: 'Generate Password',
-          icon: <FiRefreshCcw />,
-          perform: () => setPassword(nanoid(20)),
+          text: 'One Hour',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.ONE_HOUR),
+        },
+        {
+          text: 'Two Hours',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.TWO_DAYS),
+        },
+        {
+          text: 'Ten Hours',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.TEN_HOURS),
+        },
+        {
+          text: 'One Day',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.ONE_DAY),
+        },
+        {
+          text: 'Two Days',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.TWO_DAYS),
+        },
+        {
+          text: 'One Week',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.ONE_WEEK),
+        },
+        {
+          text: 'One Month',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.ONE_MONTH),
+        },
+        {
+          text: 'One Year',
+          icon: <FiClock />,
+          perform: () => setExpires(expires.ONE_YEAR),
+        },
+      ],
+    },
+  ]
+
+  const editSlug: Command[] = [
+    {
+      category: 'Options',
+      commands: [
+        {
+          text: 'Confirm',
+          icon: <FiCheck />,
+          perform: () => setOpen(0),
         },
         {
           text: 'Cancel',
           icon: <FiX />,
-          perform: () => setOpen(0),
+          perform: () => {
+            setSlug('')
+            setOpen(0)
+          },
         },
       ],
     },
@@ -893,37 +933,39 @@ const Palette: FC<{
     },
   ]
 
-  useEffect(() => {
-    if (open === 4) setPassword(input)
-  }, [open, input, setPassword])
-
   const [mainCommands] = useCommands(main)
   const [languageCommands] = useCommands(langs)
-  const [editPasswordCommands] = useCommands(editPassword)
+  const [expiresCommands] = useCommands(expiresIn)
+  const [editSlugCommands] = useCommands(editSlug)
   const [themeCommands] = useCommands(themes)
 
   return (
     <CommandWrapper>
-      <CommandMenu commands={mainCommands} index={1} crumbs={['Home']} />
+      <CommandMenu commands={mainCommands} crumbs={['Home']} index={1} />
       <CommandMenu
         commands={languageCommands}
-        index={2}
         crumbs={['Home', 'Language']}
+        index={2}
         placeholder='Language...'
       />
       <CommandMenu
-        commands={editPasswordCommands}
+        commands={expiresCommands}
+        crumbs={['Home', 'Expires']}
         index={3}
-        crumbs={['Home', 'Encrypt']}
-        placeholder='New Password...'
+        placeholder='Expires In...'
+      />
+      <CommandMenu
+        commands={editSlugCommands}
+        index={4}
+        placeholder='New slug...'
+        crumbs={['Home', 'Slug']}
         preventSearch
       />
       <CommandMenu
         commands={themeCommands}
-        index={4}
-        crumbs={['Home', 'Theme']}
+        crumbs={['Home', 'Themes']}
+        index={5}
         placeholder='Theme...'
-        preventSearch
       />
     </CommandWrapper>
   )

@@ -1,4 +1,4 @@
-import Palette from '@components/Palette/User'
+import Palette from '@components/palette/User'
 import User from '@components/User'
 import Wrapper from '@components/Wrapper'
 import supabase from '@lib/supabase'

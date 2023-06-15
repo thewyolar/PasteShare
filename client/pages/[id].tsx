@@ -1,6 +1,6 @@
 import Editor from '@components/Editor'
 import { ViewOptions } from '@components/Options'
-import Palette from '@components/Palette/View'
+import Palette from '@components/palette/View'
 import PasswordModal from '@components/PasswordModal'
 import Wrapper from '@components/Wrapper'
 import {

@@ -20,4 +20,4 @@ const Snip = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-export default Snip
+export default Snip;

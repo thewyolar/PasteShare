@@ -1,6 +1,6 @@
 import Editor from '@components/Editor'
 import Options from '@components/Options'
-import Palette from '@components/Palette/Edit'
+import Palette from '@components/palette/Edit'
 import Wrapper from '@components/Wrapper'
 import { errorIconTheme, errorStyle } from '@css/toast'
 import langs from '@lib/languages'

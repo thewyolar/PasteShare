@@ -4,10 +4,12 @@ import { FiCheck } from 'react-icons/fi'
 import FocusTrap from 'focus-trap-react'
 import { useTheme } from 'next-themes'
 
-const PasswordModal: FC<{
-  onClick: () => void
-  setPassword: Dispatch<SetStateAction<string>>
-}> = ({ onClick, setPassword }) => {
+interface PasswordModalProps {
+  onClick: () => void;
+  setPassword: Dispatch<SetStateAction<string>>;
+}
+
+const PasswordModal: FC<PasswordModalProps> = ({ onClick, setPassword }) => {
   const { theme } = useTheme()
   const input = useRef<HTMLInputElement>(null)
   useEffect(() => input.current?.focus(), [])

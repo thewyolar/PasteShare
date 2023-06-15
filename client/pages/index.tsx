@@ -2,7 +2,7 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Wrapper from '@components/Wrapper'
 import type { NextPage } from 'next'
-import Palette from '@components/Palette/Main'
+import Palette from '@components/palette/Main'
 import langs from '@lib/languages'
 import Options from '@components/Options'
 import { expires as ExpiresEnum } from '@typings/expires'
@@ -80,4 +80,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;

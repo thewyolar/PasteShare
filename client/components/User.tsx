@@ -1,4 +1,3 @@
-import { definitions } from '@typings/supabase'
 import { FC, useEffect, useRef, useState } from 'react'
 import { motion, AnimateSharedLayout } from 'framer-motion'
 import Link from 'next/link'

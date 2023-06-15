@@ -1,23 +1,8 @@
-import {
-  Command,
-  CommandMenu,
-  CommandWrapper,
-  useCommands,
-  useKmenu,
-} from 'kmenu'
+import { Command, CommandMenu, CommandWrapper, useCommands, useKmenu } from 'kmenu'
 import { FC } from 'react'
-import {
-  FiCode,
-  FiCopy,
-  FiGithub,
-  FiLogOut,
-  FiMoon,
-  FiPlus,
-  FiSun,
-} from 'react-icons/fi'
+import { FiCode, FiCopy, FiGithub, FiLogOut, FiMoon, FiPlus, FiSun } from 'react-icons/fi'
 import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
-import supabase from '@lib/supabase'
 
 const Palette: FC = () => {
   const { setOpen } = useKmenu()

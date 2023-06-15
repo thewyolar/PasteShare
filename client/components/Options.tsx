@@ -1,21 +1,5 @@
-import {
-  Dispatch,
-  FC,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react'
-import {
-  FiCopy,
-  FiDownloadCloud,
-  FiEdit,
-  FiEdit2,
-  FiLoader,
-  FiLock,
-  FiShare,
-  FiTrash,
-} from 'react-icons/fi'
+import { Dispatch, FC, ReactNode, SetStateAction, useEffect, useState,} from 'react'
+import { FiCopy, FiDownloadCloud, FiEdit, FiEdit2, FiLoader, FiShare, FiTrash, FiLock } from 'react-icons/fi'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useKmenu } from 'kmenu'
 import { definitions } from '@typings/supabase'
@@ -32,14 +16,16 @@ type Option = {
   disabled?: boolean
 }
 
-const Options: FC<{
-  create: () => void
-  edit?: boolean
-  loading: boolean
-  password?: boolean | undefined
-  setPassword?: Dispatch<SetStateAction<boolean | undefined>>
-  user?: User | null
-}> = ({ create, edit, loading, password, setPassword, user }) => {
+interface OptionsProps {
+  create: () => void;
+  edit?: boolean;
+  loading: boolean;
+  password?: boolean | undefined;
+  setPassword?: Dispatch<SetStateAction<boolean | undefined>>;
+  user?: User | null;
+}
+
+const Options: FC<OptionsProps> = ({ create, edit, loading, password, setPassword, user }) => {
   const options: Option[] = [
     {
       text: 'Encrypt Snip',
@@ -80,11 +66,12 @@ const Options: FC<{
   )
 }
 
-export const ViewOptions: FC<{
-  snip: definitions['snips']
-  owner: boolean
-}> = ({ snip, owner }) => {
-  // Avoid SVG hydration errors with Next.js
+interface ViewOptionsProps {
+  snip: definitions['snips'];
+  owner: boolean;
+}
+
+export const ViewOptions: FC<ViewOptionsProps> = ({ snip, owner }) => {
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
   if (!mounted) return null
@@ -183,7 +170,7 @@ export const ViewOptions: FC<{
       <div>
         <Link href='/' passHref>
           <a className='text-sm bg-gray-200 dark:bg-gray-700 hover:bg-[#dbdbdb] active:bg-[#cecece] dark:hover:bg-gray-600 py-3 px-4 rounded font-medium transition-colors'>
-            New Snip
+            New paste
           </a>
         </Link>
       </div>
@@ -233,10 +220,12 @@ const Option: FC<
   )
 }
 
-const CreateSnip: FC<{ create: () => void; text: string }> = ({
-  create,
-  text,
-}) => {
+interface CreateSnipProps {
+  create: () => void;
+  text: string;
+}
+
+const CreateSnip: FC<CreateSnipProps> = ({create, text}) => {
   return (
     <button
       className='flex justify-center text-sm bg-gray-200 dark:bg-gray-700 border border-transparent hover:bg-[#dbdbdb] active:bg-[#cecece] dark:hover:bg-gray-600 py-3 px-4 rounded font-medium transition-colors'

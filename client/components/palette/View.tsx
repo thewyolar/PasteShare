@@ -1,41 +1,12 @@
-import {
-  Command,
-  CommandMenu,
-  CommandWrapper,
-  useCommands,
-  useKmenu,
-} from 'kmenu'
+import { Command, CommandMenu, CommandWrapper, useCommands, useKmenu } from 'kmenu'
 import { FC } from 'react'
-import {
-  FiCheck,
-  FiCode,
-  FiCopy,
-  FiDownloadCloud,
-  FiEdit,
-  FiGithub,
-  FiGitlab,
-  FiLogOut,
-  FiMoon,
-  FiPlus,
-  FiShare2,
-  FiSun,
-  FiTrash,
-  FiUser,
-  FiX,
-} from 'react-icons/fi'
+import { FiCheck, FiCode, FiCopy, FiDownloadCloud, FiEdit, FiGithub, FiGitlab, FiLogOut, FiMoon, FiPlus, FiShare2, FiSun, FiTrash, FiUser, FiX } from 'react-icons/fi'
 import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
-import supabase from '@lib/supabase'
-import { definitions } from '@typings/supabase'
 import { User } from '@supabase/supabase-js'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
-import {
-  promiseIconTheme,
-  promiseIconThemeDark,
-  promiseStyle,
-  promiseStyleDark,
-} from '@css/toast'
+import { promiseIconTheme, promiseIconThemeDark, promiseStyle, promiseStyleDark } from '@css/toast'
 import { CategoryCommand } from 'kmenu/dist/types'
 
 const Palette: FC<{

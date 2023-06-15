@@ -15,13 +15,15 @@ export const meta = {
   type: 'website',
 }
 
-const Wrapper: FC<{
+interface WrapperProps {
   children: ReactNode
   title?: string
   description?: string
   image?: string
   nav?: string
-}> = ({ children, title, description, image, nav }) => {
+}
+
+const Wrapper: FC<WrapperProps> = ({ children, title, description, image, nav }) => {
   const router = useRouter()
   const { theme } = useTheme()
 
@@ -90,7 +92,7 @@ const Wrapper: FC<{
         </div>
       </MenuProvider>
     </div>
-  )
-}
+  );
+};
 
-export default Wrapper
+export default Wrapper;
