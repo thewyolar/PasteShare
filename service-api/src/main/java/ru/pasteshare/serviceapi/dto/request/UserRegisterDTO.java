@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import ru.pasteshare.serviceapi.model.Role;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,4 +24,7 @@ public class UserRegisterDTO {
     @NotNull
     @Size(min = 4)
     private String password;
+
+    @NotNull
+    private Set<Role> roles;
 }

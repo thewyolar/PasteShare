@@ -2,7 +2,7 @@ create table roles (
     created_at timestamp(6) not null,
     id uuid not null primary key,
     updated_at timestamp(6) not null,
-    name varchar(255),
+    name varchar(255) unique not null,
     status varchar(255) check (status in ('ACTIVE','NOT_ACTIVE','DELETED'))
 );
 
