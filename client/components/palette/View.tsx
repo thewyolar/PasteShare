@@ -9,10 +9,12 @@ import toast from 'react-hot-toast'
 import { promiseIconTheme, promiseIconThemeDark, promiseStyle, promiseStyleDark } from '@css/toast'
 import { CategoryCommand } from 'kmenu/dist/types'
 
-const Palette: FC<{
-  snip: definitions['snips']
-  user: User | null
-}> = ({ snip, user }) => {
+interface PaletteProps {
+  snip: definitions['snips'];
+  user: User | null;
+}
+
+const Palette: FC<PaletteProps> = ({ snip, user }) => {
   const { setOpen } = useKmenu()
   const { theme, setTheme } = useTheme()
   const router = useRouter()

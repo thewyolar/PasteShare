@@ -5,7 +5,6 @@ import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
 import langs from '@lib/languages'
 import { expires } from '@typings/expires'
-// import supabase from '@lib/supabase'
 import { User } from '@supabase/supabase-js'
 
 interface PaletteProps {
@@ -25,8 +24,8 @@ const Palette: FC<PaletteProps> = ({ user, slug, setSlug, setLanguage, setExpire
       category: 'Account',
       commands: [
         {
-          icon: user ? <FiUser /> : <FiGithub />,
-          text: user ? 'View Snips' : 'Continue With GitHub',
+          icon: user ? <FiUser /> : <FiUser />,
+          text: user ? 'View Snips' : 'Login',
           perform: user
             ? undefined
             : async () => {
@@ -39,8 +38,8 @@ const Palette: FC<PaletteProps> = ({ user, slug, setSlug, setLanguage, setExpire
           href: user ? `/user/${user.id}` : undefined,
         },
         {
-          icon: user ? <FiLogOut /> : <FiGitlab />,
-          text: user ? 'Logout' : 'Continue With GitLab',
+          icon: user ? <FiLogOut /> : null,
+          text: user ? 'Logout' : null,
           perform: user
             ? async () => {
                 await supabase.auth.signOut()

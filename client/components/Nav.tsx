@@ -32,8 +32,8 @@ const Nav: FC<NavProps> = ({ header }) => {
       <button
         className='bg-white shadow-2xl dark:shadow-none text-black dark:bg-gray-800 transition hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white w-10 h-10 rounded flex justify-center text-xl items-center'
         onClick={() => setOpen(1)}
-        aria-label='Открыть панель управления'
-        title='Открыть панель управления'>
+        aria-label='Open command menu'
+        title='Open command menu'>
         <TiThMenu />
       </button>
     </div>
