@@ -1,6 +1,5 @@
 package ru.pasteshare.serviceapi.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.pasteshare.serviceapi.dto.request.AuthRequestDTO;
@@ -20,20 +19,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDTO authRequestDTO) {
-        try {
-            return ResponseEntity.ok(authService.login(authRequestDTO));
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> login(@RequestBody AuthRequestDTO authRequestDTO) throws NotFoundException {
+        return ResponseEntity.ok(authService.login(authRequestDTO));
     }
 
     @PostMapping("/refreshToken")
-    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO) {
-        try {
-            return ResponseEntity.ok(authService.refreshToken(refreshTokenRequestDTO));
-        } catch (RefreshTokenException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO) throws RefreshTokenException {
+        return ResponseEntity.ok(authService.refreshToken(refreshTokenRequestDTO));
     }
 }

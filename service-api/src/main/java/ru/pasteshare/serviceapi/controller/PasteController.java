@@ -19,11 +19,7 @@ public class PasteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody PasteCreateDTO pasteCreating){
-        try {
-            return new ResponseEntity<>(pasteService.create(pasteCreating), HttpStatus.OK);
-        } catch (NoAccessException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> create(@Valid @RequestBody PasteCreateDTO pasteCreating) throws NoAccessException {
+        return new ResponseEntity<>(pasteService.create(pasteCreating), HttpStatus.OK);
     }
 }

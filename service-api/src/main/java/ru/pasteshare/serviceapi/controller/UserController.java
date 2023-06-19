@@ -18,11 +18,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegisterDTO userDTO) {
-        try {
-            return new ResponseEntity<>(userService.register(userDTO), HttpStatus.OK);
-        } catch (UserExistsException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> register(@RequestBody UserRegisterDTO userDTO) throws UserExistsException {
+        return new ResponseEntity<>(userService.register(userDTO), HttpStatus.OK);
     }
 }
