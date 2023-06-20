@@ -18,6 +18,9 @@ public class Paste extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "language", nullable = false)
+    private String language;
+
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 

@@ -12,6 +12,7 @@ create table pastes (
     id uuid not null primary key,
     updated_at timestamp(6) not null,
     user_id uuid not null,
+    language varchar(255) not null,
     content text not null,
     expired_at timestamp(6),
     status varchar(255) check (status in ('ACTIVE','NOT_ACTIVE','DELETED'))
