@@ -1,23 +1,46 @@
-import { TokenStorageService } from "./TokenStorageService";
-import axios, { AxiosInstance } from "axios";
-
+import axios, { AxiosInstance } from 'axios';
+import { TokenStorageService } from './TokenStorageService';
 
 const tokenStorageService = new TokenStorageService();
 
 const Api: AxiosInstance = axios.create({
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${tokenStorageService.getToken() ?? ""}`,
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${tokenStorageService.getAccessToken() ?? ''}`,
   },
 });
 
+const refreshToken = async () => {
+  try {
+    const refreshedTokenResponse = await axios.post('http://localhost:8079/api/auth/refresh_token', {
+      refreshToken: tokenStorageService.getRefreshToken()
+    });
+
+    const { accessToken } = refreshedTokenResponse.data;
+    tokenStorageService.saveAccessToken(accessToken);
+    return refreshedTokenResponse.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 Api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    console.log(error);
+  async (error) => {
     if (error.response.status === 401) {
-      window.location.href = "/login";
+      try {
+        const refreshedTokenResponse = await refreshToken();
+        const refreshedToken = refreshedTokenResponse.accessToken;
+        Api.defaults.headers.common.Authorization = `Bearer ${refreshedToken}`;
+        return Api.request(error.config);
+      } catch (refreshError) {
+        console.error('Ошибка при обновлении Access токена:', refreshError);
+        tokenStorageService.clear(); // Если у вас есть метод clear() в классе TokenStorageService
+        window.location.href = '/login';
+      }
     }
+
     return Promise.reject(error);
   }
 );

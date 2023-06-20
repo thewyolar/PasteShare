@@ -1,11 +1,14 @@
 import { Command, CommandMenu, CommandWrapper, useCommands, useKmenu } from 'kmenu';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { FiCheck, FiClock, FiCode, FiCopy, FiEdit2, FiGithub, FiGitlab, FiLogOut, FiMoon, FiSun, FiUser, FiX } from 'react-icons/fi'
 import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
 import langs from '@lib/languages'
 import { expires } from '@typings/expires'
 import { User } from '@supabase/supabase-js'
+import AuthService from "../../service/auth/AuthService";
+import { AuthRequestDTO } from "../../dto/AuthRequestDTO";
+import {TokenStorageService} from "../../service/auth/TokenStorageService";
 
 interface PaletteProps {
   user: User | null;
@@ -18,6 +21,7 @@ interface PaletteProps {
 const Palette: FC<PaletteProps> = ({ user, slug, setSlug, setLanguage, setExpires }) => {
   const { setOpen } = useKmenu()
   const { setTheme } = useTheme()
+  const [tokenStorageService] = useState<TokenStorageService>(new TokenStorageService());
 
   const main: Command[] = [
     {
@@ -28,27 +32,29 @@ const Palette: FC<PaletteProps> = ({ user, slug, setSlug, setLanguage, setExpire
           text: user ? 'View Snips' : 'Login',
           perform: user
             ? undefined
-            : async () => {
-                const { user } = await supabase.auth.signIn({
-                  provider: 'github',
-                })
+            : () => {
+                const username = prompt('Введите логин:');
+                const password = prompt('Введите пароль:');
 
-                if (user) window.location.reload()
+                if (username !== null && password !== null) {
+                  const data: AuthRequestDTO = {
+                    username: username,
+                    password: password,
+                  }
+                  AuthService.login(data)
+                    .then(response => {
+                      tokenStorageService.saveAccessToken(response.accessToken);
+                      tokenStorageService.saveRefreshToken(response.refreshToken);
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 1000);
+                    })
+                    .catch(error => {
+                      console.log(error.response.data.message);
+                    });
+                }
               },
           href: user ? `/user/${user.id}` : undefined,
-        },
-        {
-          icon: user ? <FiLogOut /> : null,
-          text: user ? 'Logout' : null,
-          perform: user
-            ? async () => {
-                await supabase.auth.signOut()
-                window.location.reload()
-              }
-            : async () =>
-                await supabase.auth.signIn({
-                  provider: 'gitlab',
-                }),
         },
       ],
     },
