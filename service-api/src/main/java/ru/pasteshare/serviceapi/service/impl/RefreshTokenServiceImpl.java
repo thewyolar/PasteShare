@@ -1,19 +1,18 @@
 package ru.pasteshare.serviceapi.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.pasteshare.serviceapi.exception.NotFoundException;
 import ru.pasteshare.serviceapi.model.RefreshToken;
 import ru.pasteshare.serviceapi.repository.RefreshTokenRepository;
-import ru.pasteshare.serviceapi.repository.UserRepository;
 import ru.pasteshare.serviceapi.service.RefreshTokenService;
 import ru.pasteshare.serviceapi.service.UserService;
 import ru.pasteshare.serviceapi.util.Status;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,5 +55,14 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             throw new RuntimeException(token.getToken() + " Refresh token was expired. Please make a new signin request");
         }
         return token;
+    }
+
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    private void updateExpiredTokens() {
+        List<RefreshToken> expiredTokens = refreshTokenRepository.findExpiredTokens();
+        for (RefreshToken token : expiredTokens) {
+            token.setStatus(Status.NOT_ACTIVE);
+            refreshTokenRepository.save(token);
+        }
     }
 }
