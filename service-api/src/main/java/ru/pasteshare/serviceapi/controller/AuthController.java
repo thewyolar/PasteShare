@@ -23,7 +23,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(authRequestDTO));
     }
 
-    @PostMapping("/refreshToken")
+    @PostMapping("/refresh_token")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO) throws RefreshTokenException {
         return ResponseEntity.ok(authService.refreshToken(refreshTokenRequestDTO));
     }
