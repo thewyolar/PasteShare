@@ -12,7 +12,7 @@ const Api: AxiosInstance = axios.create({
 
 const refreshToken = async () => {
   try {
-    const refreshedTokenResponse = await axios.post('http://localhost:8079/api/auth/refresh_token', {
+    const refreshedTokenResponse = await Api.post('http://localhost:8079/api/auth/refresh_token', {
       refreshToken: tokenStorageService.getRefreshToken()
     });
 
@@ -36,7 +36,7 @@ Api.interceptors.response.use(
         return Api.request(error.config);
       } catch (refreshError) {
         console.error('Ошибка при обновлении Access токена:', refreshError);
-        tokenStorageService.clear(); // Если у вас есть метод clear() в классе TokenStorageService
+        tokenStorageService.clear();
         window.location.href = '/login';
       }
     }
