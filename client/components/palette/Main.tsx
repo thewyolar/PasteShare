@@ -7,7 +7,7 @@ import langs from '@lib/languages'
 import { expires } from '@typings/expires'
 import { User } from '@supabase/supabase-js'
 import AuthService from "../../service/auth/AuthService";
-import { AuthRequestDTO } from "../../dto/AuthRequestDTO";
+import { AuthRequestDTO } from "../../dto/request/AuthRequestDTO";
 import {TokenStorageService} from "../../service/auth/TokenStorageService";
 
 interface PaletteProps {

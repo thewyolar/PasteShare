@@ -1,6 +1,6 @@
-import { AuthRequestDTO } from "../../dto/AuthRequestDTO";
+import { AuthRequestDTO } from "../../dto/request/AuthRequestDTO";
 import Api from "./Api";
-import {AuthResponseDTO} from "../../dto/AuthResponseDTO";
+import { AuthResponseDTO } from "../../dto/response/AuthResponseDTO";
 
 class AuthService {
   private static BASE_URL = "http://localhost:8079/api/auth";
