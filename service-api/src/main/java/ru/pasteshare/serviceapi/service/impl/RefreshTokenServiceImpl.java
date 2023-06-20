@@ -8,6 +8,7 @@ import ru.pasteshare.serviceapi.repository.RefreshTokenRepository;
 import ru.pasteshare.serviceapi.repository.UserRepository;
 import ru.pasteshare.serviceapi.service.RefreshTokenService;
 import ru.pasteshare.serviceapi.service.UserService;
+import ru.pasteshare.serviceapi.util.Status;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 .build();
         refreshToken.setCreatedAt(zonedDateTime.toLocalDateTime());
         refreshToken.setUpdatedAt(refreshToken.getCreatedAt());
+        refreshToken.setStatus(Status.ACTIVE);
         return refreshTokenRepository.save(refreshToken);
     }
 
