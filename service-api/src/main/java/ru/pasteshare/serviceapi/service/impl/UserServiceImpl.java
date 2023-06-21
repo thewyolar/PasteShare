@@ -1,5 +1,7 @@
 package ru.pasteshare.serviceapi.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -46,7 +49,9 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new RuntimeException("Role not found")))
                 .collect(Collectors.toSet()));
         user.setStatus(Status.ACTIVE);
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        logger.info("Registered new user with username: {}", savedUser.getUsername());
+        return savedUser;
     }
 
     @Override
@@ -56,6 +61,8 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             throw new NotFoundException("User not found");
         }
+        logger.debug("Retrieved user with username: {}", username);
         return user.get();
     }
+
 }

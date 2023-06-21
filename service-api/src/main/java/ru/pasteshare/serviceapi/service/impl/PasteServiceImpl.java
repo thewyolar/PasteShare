@@ -1,5 +1,7 @@
 package ru.pasteshare.serviceapi.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class PasteServiceImpl implements PasteService {
     private final AccessControlService accessControlService;
     private final PasteRepository pasteRepository;
     private final PasteMapper pasteMapper;
+    private final Logger logger = LoggerFactory.getLogger(PasteServiceImpl.class);
 
     public PasteServiceImpl(AccessControlService accessControlService, PasteRepository pasteRepository, PasteMapper pasteMapper) {
         this.accessControlService = accessControlService;
@@ -42,7 +45,9 @@ public class PasteServiceImpl implements PasteService {
             paste.setExpiredAt(pasteCreating.getExpirationDate());
         }
         paste.setStatus(Status.ACTIVE);
-        return pasteMapper.toUserPasteDTO(pasteRepository.save(paste));
+        Paste savedPaste = pasteRepository.save(paste);
+        logger.info("Created new paste with ID: {}", savedPaste.getId());
+        return pasteMapper.toUserPasteDTO(savedPaste);
     }
 
     @Override
@@ -50,6 +55,8 @@ public class PasteServiceImpl implements PasteService {
     public List<UserPasteDTO> getUserPastes(UUID userId, int page, int size) throws NoAccessException {
         accessControlService.checkAccess(userId);
         Pageable pageable = PageRequest.of(page, size);
-        return pasteMapper.toUserPasteDTOList(pasteRepository.findByUserId(userId, pageable).stream().toList());
+        List<Paste> userPastes = pasteRepository.findByUserId(userId, pageable).stream().toList();
+        logger.debug("Retrieved {} pastes for user with ID: {}", userPastes.size(), userId);
+        return pasteMapper.toUserPasteDTOList(userPastes);
     }
 }

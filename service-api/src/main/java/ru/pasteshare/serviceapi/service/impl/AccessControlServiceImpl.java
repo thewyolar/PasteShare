@@ -1,5 +1,7 @@
 package ru.pasteshare.serviceapi.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.UUID;
 
 @Service
 public class AccessControlServiceImpl implements AccessControlService {
+
+    private final Logger logger = LoggerFactory.getLogger(AccessControlServiceImpl.class);
 
     @Override
     public UserInfo getUserInfo() {
@@ -34,6 +38,7 @@ public class AccessControlServiceImpl implements AccessControlService {
             }
         }
         if (!userId.equals(user.getId())) {
+            logger.warn("Access denied for user with id={}", userId);
             throw new NoAccessException("No access user by id=" + userId);
         }
     }
