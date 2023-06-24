@@ -3,6 +3,7 @@ package ru.pasteshare.serviceapi.service.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import ru.pasteshare.serviceapi.dto.request.UserRegisterDTO;
+import ru.pasteshare.serviceapi.dto.response.RegisteredUserDTO;
 import ru.pasteshare.serviceapi.model.User;
 
 @Component
@@ -16,5 +17,9 @@ public class UserMapper {
 
     public User toUser(UserRegisterDTO userRegisterDTO) {
         return modelMapper.map(userRegisterDTO, User.class);
+    }
+
+    public RegisteredUserDTO toRegisteredUserDTO(User user) {
+        return modelMapper.map(user, RegisteredUserDTO.class);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pasteshare.serviceapi.dto.request.UserRegisterDTO;
+import ru.pasteshare.serviceapi.dto.response.RegisteredUserDTO;
 import ru.pasteshare.serviceapi.exception.NotFoundException;
 import ru.pasteshare.serviceapi.exception.UserExistsException;
 import ru.pasteshare.serviceapi.model.User;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User register(UserRegisterDTO userDTO) throws UserExistsException {
+    public RegisteredUserDTO register(UserRegisterDTO userDTO) throws UserExistsException {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         if (userRepository.existsByUsername(userDTO.getUsername())) {
             throw new UserExistsException(userDTO.getUsername());
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Status.ACTIVE);
         User savedUser = userRepository.save(user);
         logger.info("Registered new user with username: {}", savedUser.getUsername());
-        return savedUser;
+        return userMapper.toRegisteredUserDTO(savedUser);
     }
 
     @Override
@@ -64,5 +65,4 @@ public class UserServiceImpl implements UserService {
         logger.debug("Retrieved user with username: {}", username);
         return user.get();
     }
-
 }
