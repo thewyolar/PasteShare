@@ -23,7 +23,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RefreshTokenException.class)
     protected ResponseEntity<ApiError> handleRefreshToken(RefreshTokenException ex) {
-        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND.value(), HttpStatus.BAD_REQUEST, ex.getMessage());
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND, ex.getMessage());
         return buildResponseEntity(apiError);
     }
 
