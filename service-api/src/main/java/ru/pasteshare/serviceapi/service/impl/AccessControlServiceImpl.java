@@ -16,7 +16,6 @@ import java.util.UUID;
 
 @Service
 public class AccessControlServiceImpl implements AccessControlService {
-
     private final Logger logger = LoggerFactory.getLogger(AccessControlServiceImpl.class);
 
     @Override
