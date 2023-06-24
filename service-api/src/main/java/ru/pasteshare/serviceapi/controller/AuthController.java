@@ -20,11 +20,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequestDTO authRequestDTO) throws NotFoundException {
-        return ResponseEntity.ok(authService.login(authRequestDTO));
+        return ResponseEntity.ok()
+                .body(authService.login(authRequestDTO));
     }
 
     @PostMapping("/refresh_token")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO) throws RefreshTokenException {
-        return ResponseEntity.ok(authService.refreshToken(refreshTokenRequestDTO));
+        return ResponseEntity.ok()
+                .body(authService.refreshToken(refreshTokenRequestDTO));
     }
 }
