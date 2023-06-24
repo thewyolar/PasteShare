@@ -38,11 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public RegisteredUserDTO register(UserRegisterDTO userDTO) throws UserExistsException {
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         if (userRepository.existsByUsername(userDTO.getUsername())) {
             throw new UserExistsException(userDTO.getUsername());
         }
         User user = userMapper.toUser(userDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(user.getCreatedAt());
         user.setRoles(userDTO.getRoles().stream()
