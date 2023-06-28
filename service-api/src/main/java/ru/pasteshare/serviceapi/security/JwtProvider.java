@@ -24,6 +24,12 @@ public class JwtProvider {
     @Value("${jwt.token.access.expiration}")
     private long jwtAccessExpiration;
 
+    @Value("${jwt.token.issuer}")
+    private String jwtIssuer;
+
+    @Value("${jwt.token.audience}")
+    private String jwtAudience;
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -67,6 +73,8 @@ public class JwtProvider {
                 .setSubject(userName)
                 .setIssuedAt(Date.from(zonedDateTime.toInstant()))
                 .setExpiration(Date.from(zonedDateTime.plusSeconds(jwtAccessExpiration).toInstant()))
+                .setIssuer(jwtIssuer)
+                .setAudience(jwtAudience)
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
