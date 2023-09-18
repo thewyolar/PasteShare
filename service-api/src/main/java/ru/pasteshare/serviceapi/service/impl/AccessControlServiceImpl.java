@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.pasteshare.serviceapi.exception.NoAccessException;
 import ru.pasteshare.serviceapi.model.Role;
 import ru.pasteshare.serviceapi.model.User;
-import ru.pasteshare.serviceapi.security.UserInfo;
+import ru.pasteshare.serviceapi.security.impl.UserDetailsImpl;
 import ru.pasteshare.serviceapi.service.AccessControlService;
 
 import java.util.Set;
@@ -19,10 +19,10 @@ public class AccessControlServiceImpl implements AccessControlService {
     private final Logger logger = LoggerFactory.getLogger(AccessControlServiceImpl.class);
 
     @Override
-    public UserInfo getUserInfo() {
+    public UserDetailsImpl getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserInfo) {
-            return (UserInfo) authentication.getPrincipal();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl) {
+            return (UserDetailsImpl) authentication.getPrincipal();
         }
         return null;
     }

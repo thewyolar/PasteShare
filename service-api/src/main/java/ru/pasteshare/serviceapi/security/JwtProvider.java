@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import ru.pasteshare.serviceapi.security.impl.UserDetailsImpl;
 
 import java.security.Key;
 import java.time.ZonedDateTime;
@@ -56,9 +57,9 @@ public class JwtProvider {
         return extractExpiration(token).before(new Date());
     }
 
-    public Boolean validateToken(String token, UserInfo userInfo) {
+    public Boolean validateToken(String token, UserDetailsImpl userDetailsImpl) {
         final String username = extractUsername(token);
-        return (username.equals(userInfo.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetailsImpl.getUsername()) && !isTokenExpired(token));
     }
 
     public String generateToken(String userName) {

@@ -11,7 +11,7 @@ import ru.pasteshare.serviceapi.exception.NoAccessException;
 import ru.pasteshare.serviceapi.model.Paste;
 import ru.pasteshare.serviceapi.model.User;
 import ru.pasteshare.serviceapi.repository.PasteRepository;
-import ru.pasteshare.serviceapi.security.UserInfo;
+import ru.pasteshare.serviceapi.security.impl.UserDetailsImpl;
 import ru.pasteshare.serviceapi.service.impl.PasteServiceImpl;
 import ru.pasteshare.serviceapi.service.mapper.PasteMapper;
 
@@ -52,7 +52,7 @@ public class PasteServiceTest {
         UserPasteDTO expectedUserPasteDTO = new UserPasteDTO();
         // Установите ожидаемые значения для expectedUserPasteDTO
 
-        when(accessControlService.getUserInfo()).thenReturn(new UserInfo(user));
+        when(accessControlService.getUserInfo()).thenReturn(new UserDetailsImpl(user));
         when(pasteMapper.toPaste(pasteCreateDTO)).thenReturn(paste);
         when(pasteRepository.save(paste)).thenReturn(savedPaste);
         when(pasteMapper.toUserPasteDTO(savedPaste)).thenReturn(expectedUserPasteDTO);
