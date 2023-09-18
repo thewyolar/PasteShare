@@ -77,35 +77,37 @@ const Snip: FC<{
   }, [enter, modalOpen, selected, snip.id])
 
   return (
-    <Link href={`/${snip.id}`} passHref>
-      <a
-        className='w-full select-none text-sm h-12 flex items-center rounded transition-colors relative'
-        onMouseMove={onMouseMove}
-        style={{
-          color:
-            theme === 'dark'
-              ? selected
-                ? '#FFF'
-                : '#4E4E4E'
-              : selected
-              ? '#343434'
-              : '#828282',
-        }}>
-        {selected && (
-          <motion.div
-            layoutId='box'
-            className='bg-[#00000010] dark:bg-[#FFFFFF20] rounded w-full h-12 absolute'
-            transition={{
-              type: 'spring',
-              stiffness: 1000,
-              damping: 70,
-            }}
-          />
-        )}
-        <p className='mx-5'>/{snip.id}</p>
-      </a>
-    </Link>
-  )
+    (<Link
+      href={`/${snip.id}`}
+      passHref
+      className='w-full select-none text-sm h-12 flex items-center rounded transition-colors relative'
+      onMouseMove={onMouseMove}
+      style={{
+        color:
+          theme === 'dark'
+            ? selected
+              ? '#FFF'
+              : '#4E4E4E'
+            : selected
+            ? '#343434'
+            : '#828282',
+      }}>
+
+      {selected && (
+        <motion.div
+          layoutId='box'
+          className='bg-[#00000010] dark:bg-[#FFFFFF20] rounded w-full h-12 absolute'
+          transition={{
+            type: 'spring',
+            stiffness: 1000,
+            damping: 70,
+          }}
+        />
+      )}
+      <p className='mx-5'>/{snip.id}</p>
+
+    </Link>)
+  );
 }
 
 export default User

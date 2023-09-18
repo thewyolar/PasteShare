@@ -4,9 +4,9 @@ import { FiArrowLeft, FiCode, FiCopy, FiGithub, FiGitlab, FiLock, FiLogOut, FiMo
 import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
-import langs from '@lib/languages'
+import langs from '../../lib/languages'
 import { nanoid } from 'nanoid'
-import supabase from '@lib/supabase'
+import supabase from '../../src/lib/supabase'
 import { User } from '@supabase/supabase-js'
 
 const Palette: FC<{

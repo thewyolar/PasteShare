@@ -1,12 +1,12 @@
 import { Dispatch, FC, SetStateAction, useRef } from 'react'
 import CodeMirror, { ReactCodeMirrorRef } from '@uiw/react-codemirror'
-import { dark, light } from '@lib/theme'
-import langs from '@lib/languages'
+import { dark, light } from '../lib/theme'
+import langs from '../lib/languages'
 import { useKmenu } from 'kmenu'
 import { FiClock, FiCode } from 'react-icons/fi'
-import { expires as ExpiresEnum } from '@typings/expires'
+import { expires as ExpiresEnum } from '../typings/expires'
 import { useTheme } from 'next-themes'
-import { definitions } from '@typings/supabase'
+import { definitions } from '../src/typings/supabase'
 
 const Editor: FC<{
   setCode?: Dispatch<SetStateAction<string>>

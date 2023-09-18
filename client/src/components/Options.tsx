@@ -2,12 +2,12 @@ import { Dispatch, FC, ReactNode, SetStateAction, useEffect, useState,} from 're
 import { FiCopy, FiDownloadCloud, FiEdit, FiEdit2, FiLoader, FiShare, FiTrash, FiLock } from 'react-icons/fi'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useKmenu } from 'kmenu'
-import { definitions } from '@typings/supabase'
+import { definitions } from '../src/typings/supabase'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
-import { iconTheme, style } from '@css/toast'
 import clsx from 'clsx'
 import { User } from '@supabase/supabase-js'
+import {iconTheme, style} from "../styles/toast";
 
 type Option = {
   icon: ReactNode
@@ -168,14 +168,17 @@ export const ViewOptions: FC<ViewOptionsProps> = ({ snip, owner }) => {
             ))}
       </div>
       <div>
-        <Link href='/' passHref>
-          <a className='text-sm bg-gray-200 dark:bg-gray-700 hover:bg-[#dbdbdb] active:bg-[#cecece] dark:hover:bg-gray-600 py-3 px-4 rounded font-medium transition-colors'>
+        <Link
+          href='/'
+          passHref
+          className='text-sm bg-gray-200 dark:bg-gray-700 hover:bg-[#dbdbdb] active:bg-[#cecece] dark:hover:bg-gray-600 py-3 px-4 rounded font-medium transition-colors'>
+          
             New paste
-          </a>
+          
         </Link>
       </div>
     </div>
-  )
+  );
 }
 
 const Option: FC<

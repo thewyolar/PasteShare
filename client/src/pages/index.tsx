@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import Wrapper from '@components/Wrapper'
+import Wrapper from '../components/Wrapper'
 import type { NextPage } from 'next'
-import Palette from '@components/palette/Main'
-import langs from '@lib/languages'
-import Options from '@components/Options'
-import { expires as ExpiresEnum } from '@typings/expires'
+import Palette from '../components/palette/Main'
+import langs from '../lib/languages'
+import Options from '../components/Options'
+import { expires as ExpiresEnum } from '../typings/expires'
 // import supabase from '@lib/supabase'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
@@ -13,7 +13,7 @@ import { errorIconTheme, errorStyle } from '@css/toast'
 import { nanoid } from 'nanoid'
 import HttpService from "../service/HttpService";
 import {PasteCreateDTO} from "../dto/request/PasteCreateDTO";
-const Editor = dynamic(() => import('@components/Editor'))
+const Editor = dynamic(() => import('../components/Editor'))
 
 const Home: NextPage = () => {
   const router = useRouter()

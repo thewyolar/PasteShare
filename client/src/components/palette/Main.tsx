@@ -3,8 +3,8 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { FiCheck, FiClock, FiCode, FiCopy, FiEdit2, FiGithub, FiGitlab, FiLogOut, FiMoon, FiSun, FiUser, FiX } from 'react-icons/fi'
 import { BiPaintRoll } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
-import langs from '@lib/languages'
-import { expires } from '@typings/expires'
+import langs from '../../lib/languages'
+import { expires } from '../../typings/expires'
 import { User } from '@supabase/supabase-js'
 import AuthService from "../../service/auth/AuthService";
 import { AuthRequestDTO } from "../../dto/request/AuthRequestDTO";

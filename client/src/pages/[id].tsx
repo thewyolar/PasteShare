@@ -1,16 +1,16 @@
-import Editor from '@components/Editor'
-import { ViewOptions } from '@components/Options'
-import Palette from '@components/palette/View'
-import PasswordModal from '@components/PasswordModal'
-import Wrapper from '@components/Wrapper'
+import Editor from '../components/Editor'
+import { ViewOptions } from '../components/Options'
+import Palette from '../components/palette/View'
+import PasswordModal from '../components/PasswordModal'
+import Wrapper from '../components/Wrapper'
 import {
   promiseIconTheme,
   promiseIconThemeDark,
   promiseStyle,
   promiseStyleDark,
 } from '@css/toast'
-import supabase from '@lib/supabase'
-import { definitions } from '@typings/supabase'
+import supabase from '../lib/supabase'
+import { definitions } from '../typings/supabase'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/router'
